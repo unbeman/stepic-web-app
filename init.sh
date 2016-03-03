@@ -1,6 +1,9 @@
-#!/bin/sh
-file_path=/home/box/web
+#!/usr/bin/env bash
 
-sudo rm /etc/nginx/sites-enabled/*
-sudo ln  -s $file_path/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
+sudo rm /etc/nginx/sites-enabled/default
+
+sudo ln -sf /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
 sudo /etc/init.d/nginx restart
+
+sudo ln -s /home/box/web/etc/gunicorn.conf /etc/gunicorn.d/ask
+sudo /etc/init.d/gunicorn restart
