@@ -7,3 +7,9 @@ sudo /etc/init.d/nginx restart
 
 sudo ln -s /home/box/web/etc/gunicorn.conf /etc/gunicorn.d/ask
 sudo /etc/init.d/gunicorn restart
+
+sudo /etc/init.d/mysql restart
+
+mysql -uroot -e "create user 'django'@'localhost' identified by 'django';"
+mysql -uroot -e "grant all privileges on * . * to 'django'@'localhost';"
+mysql -uroot -e "flush privileges;"
