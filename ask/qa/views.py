@@ -43,7 +43,8 @@ def ask(request):
 	if request.method == 'POST':
 		form = AskForm(request.POST)
 		if form.is_valid():
-			question = form.save()
+			question = form.save(commit = False)
+           # question.author = request.user
 			question.save()
 			return redirect(question)
 	else:
@@ -55,8 +56,9 @@ def ask(request):
 
 @require_POST
 def answer(request):
-	form = AnswerForm(request.Post)
+	form = AnswerForm(request.POST)
 	if form.is_valid():
-		answer = form.save()
+		answer = form.save(commit = False)
+       # answer.author = request.user
 		answer.save()
-		return redirect(answer.question)
+		return redirect(question)

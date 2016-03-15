@@ -6,8 +6,8 @@
     <div>{{ answer.text }}</div>
 {% endfor %}
 <hr>
-<form action="{% url 'answer'%}">
+<form action="{% url 'answer' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Answer" />
+    <input type="submit" value="Answer">
 </form>

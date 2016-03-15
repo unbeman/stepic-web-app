@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^ask', views.test, name='ask'),
     url(r'^popular/$', views.popular, name='popular'),
     url(r'^new/$', views.home, name='new'),
+    url(r'^answer/$', views.answer, name='answer'),
 ]
