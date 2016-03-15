@@ -31,15 +31,15 @@ def popular(request):
 def question(request, id):
     question = get_object_or_404(Question, id=id)
     answers = question.answer_set.all()
-	answer_form = AnswerForm({'question':question.id})
+	form = AnswerForm({'question':question.id})
     return render(request, 'qa/question.html',
         {
          'question': question,
          'answers': answers,
-	 'form':answer_form
+         'form': form
         })
 
-def add_question(request):
+def question(request):
 	if request.method == 'POST':
 		form = AskForm(request.POST)
 		if form.is_valid():
@@ -54,9 +54,9 @@ def add_question(request):
 		})
 
 @require_POST
-def add_answer(request):
+def answer(request):
 	form = AnswerForm(request.Post)
 	if form.is_valid():
 		answer = form.save()
 		answer.save()
-		return redirect(question)
+		return redirect(answer.question)
