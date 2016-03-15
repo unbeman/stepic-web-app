@@ -14,8 +14,8 @@ def home(request):
     paginator, page = paginate(request, Question.objects.order_by('-added_at'))
     return render(request, 'qa/home.html', 
         {
-            'page': page,
-            'paginator': paginator
+         'page': page,
+         'paginator': paginator
         })
 
 @require_GET
@@ -39,7 +39,7 @@ def question(request, id):
          'form': form
         })
 
-def question(request):
+def ask(request):
 	if request.method == 'POST':
 		form = AskForm(request.POST)
 		if form.is_valid():
@@ -50,7 +50,7 @@ def question(request):
 		form = AskForm()
 	return render(request, 'qa/ask.html',
 		{
-		'form': form
+		 'form': form
 		})
 
 @require_POST
