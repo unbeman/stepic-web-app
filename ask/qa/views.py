@@ -4,6 +4,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from .models import Question, Answer
 from .utils import paginate
+from .forms import AskForm, AnswerForm
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -30,8 +31,32 @@ def popular(request):
 def question(request, id):
     question = get_object_or_404(Question, id=id)
     answers = question.answer_set.all()
+	answer_form = AnswerForm({'question':question.id})
     return render(request, 'qa/question.html',
         {
          'question': question,
-         'answers': answers
+         'answers': answers,
+	 'form':answer_form
         })
+
+def add_question(request):
+	if request.method == 'POST':
+		form = AskForm(request.POST)
+		if form.is_valid():
+			question = form.save()
+			question.save()
+			return redirect(question)
+	else:
+		form = AskForm()
+	return render(request, 'qa/ask.html',
+		{
+		'form': form
+		})
+
+@require_POST
+def add_answer(request):
+	form = AnswerForm(request.Post)
+	if form.is_valid():
+		answer = form.save()
+		answer.save()
+		return redirect(question)
