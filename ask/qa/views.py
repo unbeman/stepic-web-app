@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_GET, require_POST
 
 from .models import Question, Answer
+from .utils import paginate #### 
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -28,7 +29,7 @@ def popular(request):
 @require_GET
 def question(request, id):
     question = get_object_or_404(Question, id=id)
-    answer = question.answer_set.all()
+    answers = question.answer_set.all() ###there were "answer"! 
     return render(request, 'qa/question.html',
         {
          'question': question,
